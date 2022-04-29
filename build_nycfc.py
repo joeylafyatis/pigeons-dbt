@@ -5,8 +5,7 @@ import sqlite3
 
 class DatabaseBuilder():
     def __init__(self):
-        self.connection = self._reset_connection()
-        self.build_order = [
+        self.ddl_sequence = [
             'dim_competition'
             , 'dim_opponent'
             , 'dim_stadium'
@@ -14,7 +13,9 @@ class DatabaseBuilder():
             , 'vw_matches_comp'
             , 'vw_mls_regular_season'
         ]
-        self._refresh_ddl()
+
+        self.connection = self._reset_connection()
+        self._execute_ddl()
         self._load_csv_data()
 
     def _reset_connection(self):
@@ -24,21 +25,21 @@ class DatabaseBuilder():
         connection = sqlite3.connect(db)
         return connection
 
-    def _refresh_ddl(self):
-        ddl_dirs = ['_sql_table', '_sql_view']
-        sql = [ self._read_ddl_dir(x) for x in ddl_dirs ]
-        sql = [ query for lst in sql for query in lst ]
+    def _execute_ddl(self):
+        dirs = ['_sql_table', '_sql_view']
+        dir_lookups = [ self._read_dir(d) for d in dirs ]
+        ddl_lookup = { k: v for d in dir_lookups for k, v in d.items() }
+        paths = [ ddl_lookup[x] for x in self.ddl_sequence ]
+        sql = [ open(p).read() for p in paths ]
         run_ddl = lambda x: self.connection.cursor().executescript(x)
         [ run_ddl(x) for x in sql ]
         
-    def _read_ddl_dir(self, dir):
-        files = [ f for f in os.listdir(dir) if f.endswith('.sql') ]
-        filenames = [ f.split('.')[0] for f in files ]
-        paths = [ os.path.join(dir, f) for f in files ]
-        contents = [ open(p).read() for p in paths ]
-        dict_lookup = dict(zip(filenames, contents))
-        queries = [ dict_lookup[x] for x in self.build_order if x in dict_lookup.keys() ]
-        return queries
+    def _read_dir(self, dir):
+        sql_files = [ f for f in os.listdir(dir) if f.endswith('.sql') ]
+        names = [ f.split('.')[0] for f in sql_files ]
+        paths = [ os.path.join(dir, f) for f in sql_files ]
+        dir_lookup =  dict(zip(names, paths))
+        return dir_lookup
 
     def _load_csv_data(self):
         tables = self._transform_csv_data()
@@ -51,7 +52,7 @@ class DatabaseBuilder():
         [ insert_values(k, v) for k, v in tables.items() ]
 
     def _transform_csv_data(self):
-        with open('_csv/match.csv') as f:
+        with open('match.csv') as f:
             df_data = pd.read_csv(f)
         df_match = df_data.drop(columns=['opponent_nationality', 'location_city', 'location_state', 'location_country', 'is_competitive_match'])
 
