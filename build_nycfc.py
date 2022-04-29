@@ -13,10 +13,26 @@ class DatabaseBuilder():
             , 'vw_matches_comp'
             , 'vw_mls_regular_season'
         ]
-
+        self.ddl = self._prepare_ddl()
         self.connection = self._reset_connection()
+
         self._execute_ddl()
         self._load_csv_data()
+
+    def _prepare_ddl(self):
+        dirs = ['_sql_table', '_sql_view']
+        files = [ self._generate_lookup(d) for d in dirs ]
+        ddl_lookup = { k: v for d in files for k, v in d.items() }
+        paths = [ ddl_lookup[x] for x in self.ddl_sequence ]
+        sql = [ open(p).read() for p in paths ]
+        return sql
+
+    def _generate_lookup(self, dir):
+        files = [ f for f in os.listdir(dir) if f.endswith('.sql') ]
+        names = [ f.split('.')[0] for f in files ]
+        paths = [ os.path.join(dir, f) for f in files ]
+        lookup_dict =  dict(zip(names, paths))
+        return lookup_dict
 
     def _reset_connection(self):
         db = 'nycfc.db'
@@ -26,20 +42,8 @@ class DatabaseBuilder():
         return connection
 
     def _execute_ddl(self):
-        dirs = ['_sql_table', '_sql_view']
-        dir_lookups = [ self._read_dir(d) for d in dirs ]
-        ddl_lookup = { k: v for d in dir_lookups for k, v in d.items() }
-        paths = [ ddl_lookup[x] for x in self.ddl_sequence ]
-        sql = [ open(p).read() for p in paths ]
-        run_ddl = lambda x: self.connection.cursor().executescript(x)
-        [ run_ddl(x) for x in sql ]
-        
-    def _read_dir(self, dir):
-        sql_files = [ f for f in os.listdir(dir) if f.endswith('.sql') ]
-        names = [ f.split('.')[0] for f in sql_files ]
-        paths = [ os.path.join(dir, f) for f in sql_files ]
-        dir_lookup =  dict(zip(names, paths))
-        return dir_lookup
+        execute_query = lambda x: self.connection.cursor().executescript(x)
+        [ execute_query(d) for d in self.ddl ]
 
     def _load_csv_data(self):
         tables = self._transform_csv_data()
