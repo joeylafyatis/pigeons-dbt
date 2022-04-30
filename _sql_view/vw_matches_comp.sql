@@ -18,3 +18,4 @@ SELECT
 FROM fact_matches AS fm 
     INNER JOIN dim_competition AS dc ON fm.competition = dc.competition
 WHERE dc.is_competitive_match
+;

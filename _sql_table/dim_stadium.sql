@@ -4,4 +4,4 @@ CREATE TABLE dim_stadium (
     , location_city VARCHAR NOT NULL
     , location_state  VARCHAR
     , location_country CHARACTER(2) NOT NULL
-)
+);

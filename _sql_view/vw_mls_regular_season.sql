@@ -30,3 +30,4 @@ SELECT
     ) AS cumulative_points
 FROM fact_matches 
 WHERE competition = 'MLS Regular Season'
+;

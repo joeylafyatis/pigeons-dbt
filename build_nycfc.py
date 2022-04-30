@@ -5,6 +5,7 @@ import sqlite3
 
 class DatabaseBuilder():
     def __init__(self):
+        self.ddl_dirs = ['_sql_table', '_sql_view']
         self.ddl_sequence = [
             'dim_competition'
             , 'dim_opponent'
@@ -16,15 +17,17 @@ class DatabaseBuilder():
         self.ddl = self._prepare_ddl()
         self.connection = self._reset_connection()
 
-        self._execute_ddl()
+        ddl_in = ' '.join(self.ddl)
+        self.connection.cursor().executescript(ddl_in)
+
         self._load_csv_data()
+        self.connection.close()
 
     def _prepare_ddl(self):
-        dirs = ['_sql_table', '_sql_view']
-        files = [ self._generate_lookup(d) for d in dirs ]
-        ddl_lookup = { k: v for d in files for k, v in d.items() }
-        paths = [ ddl_lookup[x] for x in self.ddl_sequence ]
-        sql = [ open(p).read() for p in paths ]
+        files = [ self._generate_lookup(d) for d in self.ddl_dirs ]
+        lookup = { k: v for d in files for k, v in d.items() }
+        lookup_paths = [ lookup[x] for x in self.ddl_sequence ]
+        sql = [ self._read_file(lp) for lp in lookup_paths ]
         return sql
 
     def _generate_lookup(self, dir):
@@ -34,16 +37,19 @@ class DatabaseBuilder():
         lookup_dict =  dict(zip(names, paths))
         return lookup_dict
 
+    def _read_file(self, file):
+        with open(file) as f:
+            data = f.read().rstrip()
+        assert_false = f'this SQL file does not end with a semi-colon: {file}'
+        assert data.endswith(';'), assert_false
+        return data
+
     def _reset_connection(self):
         db = 'nycfc.db'
         if os.path.exists(db):
             os.remove(db)
         connection = sqlite3.connect(db)
         return connection
-
-    def _execute_ddl(self):
-        execute_query = lambda x: self.connection.cursor().executescript(x)
-        [ execute_query(d) for d in self.ddl ]
 
     def _load_csv_data(self):
         tables = self._transform_csv_data()
