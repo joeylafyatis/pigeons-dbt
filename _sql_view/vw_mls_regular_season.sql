@@ -2,7 +2,7 @@ DROP VIEW IF EXISTS vw_mls_regular_season;
 CREATE VIEW vw_mls_regular_season AS 
 SELECT
     match_date 
-    , SUBSTR(match_date, 1, 4) AS mls_season
+    , CAST(SUBSTR(match_date, 1, 4) AS INTEGER) AS mls_season
     , ROW_NUMBER() OVER(PARTITION BY SUBSTR(match_date, 1, 4) ORDER BY match_date ASC) AS mls_matchday
     , opponent
     , stadium
