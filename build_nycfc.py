@@ -20,6 +20,7 @@ class DatabaseBuilder():
         ddl_in = ' '.join(self.ddl)
         self.connection.cursor().executescript(ddl_in)
 
+        self.match_data = pd.read_csv('match.csv')
         self._load_csv_data()
         self.connection.close()
 
@@ -51,6 +52,13 @@ class DatabaseBuilder():
         connection = sqlite3.connect(db)
         return connection
 
+    # def example(self):
+    #     dimensions = {
+    #         'competition': 'is_competitive_match'
+    #         , 'opponent': 'opponent_nationality'
+    #         , 'stadium': ['location_city', 'location_state', 'location_country']
+    #     }
+
     def _load_csv_data(self):
         tables = self._transform_csv_data()
         insert_values = lambda key, val: val.to_sql(
@@ -63,13 +71,13 @@ class DatabaseBuilder():
 
     def _transform_csv_data(self):
         with open('match.csv') as f:
-            df_data = pd.read_csv(f)
+            
         df_match = df_data.drop(columns=['opponent_nationality', 'location_city', 'location_state', 'location_country', 'is_competitive_match'])
 
         table_data = {
             'dim_competition': self._transform_dim_table(df_data, ['competition', 'is_competitive_match'])
             , 'dim_opponent': self._transform_dim_table(df_data, ['opponent', 'opponent_nationality'])
-            , 'dim_stadium': self._transform_dim_table(df_data, ['stadium', 'location_city', 'location_state', 'location_country'])
+            , 'dim_stadium': self._transform_dim_table(df_data, ['stadium', )
             , 'fact_matches': df_match
         }
         return table_data
