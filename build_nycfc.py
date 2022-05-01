@@ -5,8 +5,26 @@ import sqlite3
 
 class DatabaseBuilder():
     def __init__(self):
-        self.ddl_dirs = ['_sql_table', '_sql_view']
-        self.ddl_sequence = [
+        self.ddl = self._prepare_ddl()
+        self.connection = self._reset_connection()
+        ddl_in = ' '.join(self.ddl)
+        
+        self.match_data = pd.read_csv('match.csv')
+        data_in = self._prepare_data()
+        insert_values = lambda key, val: val.to_sql(
+            key
+            , self.connection
+            , if_exists='append'
+            , index=False
+        )
+
+        self.connection.cursor().executescript(ddl_in)
+        [ insert_values(k, v) for k, v in data_in.items() ]
+        self.connection.close()
+
+    def _prepare_ddl(self):
+        ddl_dirs = ['_sql_table', '_sql_view']
+        ddl_sequence = [
             'dim_competition'
             , 'dim_opponent'
             , 'dim_stadium'
@@ -14,20 +32,9 @@ class DatabaseBuilder():
             , 'vw_matches_comp'
             , 'vw_mls_regular_season'
         ]
-        self.ddl = self._prepare_ddl()
-        self.connection = self._reset_connection()
-
-        ddl_in = ' '.join(self.ddl)
-        self.connection.cursor().executescript(ddl_in)
-
-        self.match_data = pd.read_csv('match.csv')
-        self._load_csv_data()
-        self.connection.close()
-
-    def _prepare_ddl(self):
-        files = [ self._generate_lookup(d) for d in self.ddl_dirs ]
+        files = [ self._generate_lookup(d) for d in ddl_dirs ]
         lookup = { k: v for d in files for k, v in d.items() }
-        lookup_paths = [ lookup[x] for x in self.ddl_sequence ]
+        lookup_paths = [ lookup[x] for x in ddl_sequence ]
         sql = [ self._read_file(lp) for lp in lookup_paths ]
         return sql
 
@@ -52,40 +59,26 @@ class DatabaseBuilder():
         connection = sqlite3.connect(db)
         return connection
 
-    # def example(self):
-    #     dimensions = {
-    #         'competition': 'is_competitive_match'
-    #         , 'opponent': 'opponent_nationality'
-    #         , 'stadium': ['location_city', 'location_state', 'location_country']
-    #     }
+    def _prepare_data(self):
+        tables = self._transform_dims()
+        tables['fact_matches'] = self.match_data
+        return tables
 
-    def _load_csv_data(self):
-        tables = self._transform_csv_data()
-        insert_values = lambda key, val: val.to_sql(
-            key
-            , self.connection
-            , if_exists='append'
-            , index=False
-        )
-        [ insert_values(k, v) for k, v in tables.items() ]
-
-    def _transform_csv_data(self):
-        with open('match.csv') as f:
-            
-        df_match = df_data.drop(columns=['opponent_nationality', 'location_city', 'location_state', 'location_country', 'is_competitive_match'])
-
-        table_data = {
-            'dim_competition': self._transform_dim_table(df_data, ['competition', 'is_competitive_match'])
-            , 'dim_opponent': self._transform_dim_table(df_data, ['opponent', 'opponent_nationality'])
-            , 'dim_stadium': self._transform_dim_table(df_data, ['stadium', )
-            , 'fact_matches': df_match
+    def _transform_dims(self):
+        dimensions = {
+            'competition': ['is_competitive_match']
+            , 'opponent': ['opponent_nationality']
+            , 'stadium': ['location_city', 'location_state', 'location_country']
         }
-        return table_data
+        dimensions = { f'dim_{k}': self._generate_dim(k, v) for k, v in dimensions.items() }
+        return dimensions
 
-    def _transform_dim_table(self, df, list_cols):
-        df = df[list_cols].drop_duplicates()
-        df = df[df[df.columns[0]].notna()]
-        return df
+    def _generate_dim(self, key, val):
+        table_cols = [key, *val]
+        df_data = self.match_data[table_cols].drop_duplicates()
+        df_data = df_data[df_data[key].notna()]
+        self.match_data.drop(columns=val, inplace=True)
+        return df_data
 
 def main():
     dbb = DatabaseBuilder()
