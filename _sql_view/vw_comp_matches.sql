@@ -1,5 +1,5 @@
-DROP VIEW IF EXISTS vw_matches_comp;
-CREATE VIEW vw_matches_comp AS 
+DROP VIEW IF EXISTS vw_comp_matches;
+CREATE VIEW vw_comp_matches AS 
 SELECT
     fm.match_date 
     , fm.competition
