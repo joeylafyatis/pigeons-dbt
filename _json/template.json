@@ -1,0 +1,21 @@
+{
+    "match_date": 20220511
+    , "competition": "US Open Cup" 
+    , "is_competitive_match": true 
+    , "opponent": "Rochester New York FC" 
+    , "opponent_nationality": "US"
+    , "stadium": "Belson Stadium"
+    , "location_city": "New York" 
+    , "location_state": "NY"
+    , "location_country": "US"
+    , "attendance": null
+    , "referee": "Ernie Constantine"
+    , "is_home_match": true
+    , "nycfc_goals": 3
+    , "nycfc_aggregate": null
+    , "nycfc_penalties": null
+    , "opponent_goals": 1
+    , "opponent_aggregate": null
+    , "opponent_penalties": null
+    , "result": "W" 
+}
