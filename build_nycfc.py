@@ -8,7 +8,8 @@ class DatabaseBuilder():
         self.data = pd.read_csv(csv_in)
         insert_bool = self._prompt_user()
         if insert_bool:
-            self.record = pd.read_json('add_match.json', typ='series')
+            match = os.path.join('_json', 'match.json')
+            self.record = pd.read_json(match, typ='series')
             self.data = self._insert_record(csv_in)
 
         self.ddl = self._prepare_ddl()
@@ -132,7 +133,7 @@ class DatabaseBuilder():
         return df_data
 
 def main():
-    dbb = DatabaseBuilder('match.csv')
+    dbb = DatabaseBuilder('matches.csv')
 
 if __name__ == '__main__':
     main()
