@@ -1,4 +1,4 @@
 *.DS_Store
 *.csv
 *.db
-add_match.json
+match.json
