@@ -27,7 +27,7 @@ class DatabaseBuilder():
     def _insert_record(self, csv_file):
         is_complete = self._validate_completeness()
         is_unique = self._validate_uniqueness()
-        
+
         df_record = pd.DataFrame([self.record.to_dict()])
         df_data = pd.concat([self.data, df_record])
         df_data.to_csv(csv_file, index=False)
@@ -66,6 +66,7 @@ class DatabaseBuilder():
             , 'fact_matches'
             , 'vw_comp_matches'
             , 'vw_mls_regular_season'
+            , 'vw_incomplete_data'
         ]
         files = [ self._generate_lookup(d) for d in ddl_dirs ]
         lookup = { k: v for d in files for k, v in d.items() }
