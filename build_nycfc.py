@@ -63,8 +63,10 @@ class DatabaseBuilder():
         ddl_sequence = [
             'dim_competition'
             , 'dim_opponent'
+            , 'dim_manager'
             , 'dim_stadium'
             , 'fact_matches'
+            , 'fact_lineups'
             , 'vw_comp_matches'
             , 'vw_mls_regular_season'
             , 'vw_incomplete_data'
@@ -124,6 +126,7 @@ class DatabaseBuilder():
         dimensions = {
             'competition': ['is_competitive_match']
             , 'opponent': ['opponent_nationality']
+            , 'manager': ['manager_nationality', 'start_date', 'end_date']
             , 'stadium': ['location_city', 'location_state', 'location_country']
         }
         dimensions = { f'dim_{k}': self._generate_dim(k, v) for k, v in dimensions.items() }
