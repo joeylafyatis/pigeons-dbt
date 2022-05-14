@@ -7,6 +7,7 @@ SELECT
     , fm.match_day
     , fm.competition
     , fm.opponent
+    , fm.manager
     , fm.stadium
     , fm.attendance
     , fm.referee

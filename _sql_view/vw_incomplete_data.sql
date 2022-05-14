@@ -4,6 +4,15 @@ WITH incomplete_consolidated AS (
     SELECT
         match_date
         , opponent
+        , 'manager' AS missing_field
+    FROM fact_matches 
+    WHERE manager IS NULL
+
+    UNION ALL 
+    
+    SELECT
+        match_date
+        , opponent
         , 'stadium' AS missing_field
     FROM fact_matches 
     WHERE stadium IS NULL

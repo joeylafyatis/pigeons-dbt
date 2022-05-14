@@ -8,6 +8,7 @@ WITH mls_regular_season AS (
         , match_day
         , ROW_NUMBER() OVER(PARTITION BY match_year ORDER BY match_date ASC) AS mls_matchday
         , opponent
+        , manager
         , stadium
         , attendance
         , referee

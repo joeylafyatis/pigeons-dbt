@@ -6,7 +6,7 @@ CREATE TABLE fact_lineups (
     , match_day INTEGER NOT NULL
     , opponent VARCHAR NOT NULL REFERENCES dim_opponent(opponent)
     , player_name VARCHAR NOT NULL REFERENCES dim_player(player)
-    , is_starter BOOLEAN NOT NULL
+    , is_starting_xi BOOLEAN NOT NULL
     , substitution_for VARCHAR REFERENCES dim_player(player)
     , substitution_off_at INTEGER
     , substitution_on_at INTEGER
