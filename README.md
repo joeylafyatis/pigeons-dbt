@@ -1,29 +1,23 @@
 # NYCFC Match Database
 
-This repo contains a Python script and supporting SQL files that expect a CSV of NYCFC match data, from which to refresh a normalized database for analyses. The script also accepts a single user input to indicate whether a new record of match data is available via a JSON file, to be appended to the CSV prior to the refresh.
+This repo contains a Python script that refreshes a normalized SQLite database file of NYCFC match data. The script first creates a database architecture defined in SQL, and then inserts data from a CSV file following a series of transformations.
 
-## Repo Architecture
+## Requirements
 
-### Requirements
+The Python script in this repo will only succeed if the modules in `requirements.txt` are made available to it.
 
-The main script in this repo is written in Python and will only run if the modules in `requirements.txt` are available.
+## Overview
 
-### DatabaseBuilder
+`build-nycfc.py` consists entirely of a `DatabaseBuilder` class that executes two independent processes:
 
-The `build-nycfc.py` Python script consists entirely of a `DatabaseBuilder` class that executes two processes, described below. 
+### ETL Process
 
-### Database Refresh
+The main process within `DatabaseBuilder` is a simple ETL that expects `matches.csv`, a CSV of NYCFC match data, from which to to produce `nycfc.db`, a normalized SQLite database file. These data change files are not version-controlled within the repo, though the SQL files in `_sql_table/` and `_sql_view/` demonstrate the database architecture. 
 
-The main process within `build-nycfc.py` is a simple ETL that expects `matches.csv`, a CSV of NYCFC match data, from which to to produce `nycfc.db`, a normalized SQLite database file. Neither of these data change files are version-controlled within the repo. 
+### CSV Updates
 
-### SQL Directories
-
-*Work in progress* 
-
-### New Records
-
-An optional process within `build-nycfc.py` appends a new record of match data from `match.json`, found within the `_json/` directory, to the CSV prior to refreshing the database. This data change file is similarly omitted from the repo, though `template.json` in the same directory demonstrates the expected schema structure.
+An optional process within `build-nycfc.py` appends a new record of data from `match.json`, found within the `_json/` directory, to the CSV prior to refreshing the database. This data change file is not version-controlled within the repo, though `template.json` demonstrates its schema.
 
 ## Disclaimer
 
-This repo does not support the historical data collection efforts that have been requisite to this work, as the speed at which new data is created does not seem to immediately warrant it. The next iteration of this work will first endeavor to create data models that capture player-level information: changes to the roster, starting line-ups, and in-game events (goals, substitutions, and cards).
+This repo does not support the historical data collection efforts that were requisite to this work, as the speed at which new data is created has not seemed to immediately warrant it. The next iteration of this work will first endeavor to create data models that capture player-level information, such as: roster changes, starting line-ups, and in-game events (goals, substitutions, and cards).
