@@ -117,7 +117,7 @@ class DatabaseBuilder():
         df['match_year'] = df.match_date.astype('str').str.slice(stop=4).astype('int')
         df['match_month'] = df.match_date.astype('str').str.slice(start=4, stop=6).astype('int')
         df['match_day'] = df.match_date.astype('str').str.slice(start=6, stop=8).astype('int')
-        tables['fact_matches'] = self.data
+        tables['fact_matches'] = df
         return tables
 
     def _transform_dims(self):
