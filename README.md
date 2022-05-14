@@ -1,10 +1,10 @@
 # NYCFC Match Database
 
-This repo contains a Python script that refreshes a normalized SQLite database file of NYCFC match data. The script first creates a database architecture defined in SQL, and then inserts data from a CSV file following a series of transformations.
+This repo contains a Python script that refreshes a SQLite database of NYCFC match data. The script first creates an architecture defined in SQL files, and then inserts data retrieved and normalized from a CSV file.
 
 ## Requirements
 
-The Python script in this repo will only succeed if the modules in `requirements.txt` are made available to it.
+The Python script in this repo will only succeed if the modules in `requirements.txt` are installed and available.
 
 ## Overview
 
@@ -20,4 +20,4 @@ An optional process within `build-nycfc.py` appends a new record of data from `m
 
 ## Disclaimer
 
-This repo does not support the historical data collection efforts that were requisite to this work, as the speed at which new data is created has not seemed to immediately warrant it. The next iteration of this work will first endeavor to create data models that capture player-level information, such as: roster changes, starting line-ups, and in-game events (goals, substitutions, and cards).
+This repo does not include the historical data collection efforts that were requisite to this work, as the speed at which new data is created has not seemed to immediately warrant it. The next iteration of this work will endeavor to create data models that capture player-level information, such as: roster changes, starting line-ups, and in-game events (goals, substitutions, and cards).
