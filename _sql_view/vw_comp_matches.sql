@@ -2,6 +2,9 @@ DROP VIEW IF EXISTS vw_comp_matches;
 CREATE VIEW vw_comp_matches AS 
 SELECT
     fm.match_date 
+    , fm.match_year 
+    , fm.match_month 
+    , fm.match_day
     , fm.competition
     , fm.opponent
     , fm.stadium

@@ -3,8 +3,10 @@ CREATE VIEW vw_mls_regular_season AS
 WITH mls_regular_season AS (
     SELECT
         match_date 
-        , CAST(SUBSTR(match_date, 1, 4) AS INTEGER) AS mls_season
-        , ROW_NUMBER() OVER(PARTITION BY SUBSTR(match_date, 1, 4) ORDER BY match_date ASC) AS mls_matchday
+        , match_year
+        , match_month 
+        , match_day
+        , ROW_NUMBER() OVER(PARTITION BY match_year ORDER BY match_date ASC) AS mls_matchday
         , opponent
         , stadium
         , attendance
@@ -25,7 +27,7 @@ WITH mls_regular_season AS (
                 WHEN 'L' THEN 0
                 END
         ) OVER (
-            PARTITION BY SUBSTR(match_date, 1, 4)
+            PARTITION BY match_year
             ORDER BY match_date ASC
             ROWS UNBOUNDED PRECEDING
         ) AS cumulative_points

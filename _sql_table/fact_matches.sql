@@ -1,6 +1,9 @@
 DROP TABLE IF EXISTS fact_matches;
 CREATE TABLE fact_matches (
     match_date INTEGER NOT NULL
+    , match_year INTEGER NOT NULL
+    , match_month INTEGER NOT NULL
+    , match_day INTEGER NOT NULL
     , competition VARCHAR NOT NULL REFERENCES dim_competition(competition)
     , opponent VARCHAR NOT NULL REFERENCES dim_opponent(opponent)
     , stadium VARCHAR REFERENCES dim_stadium(stadium)
