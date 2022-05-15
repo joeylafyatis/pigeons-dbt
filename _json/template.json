@@ -1,20 +1,24 @@
 {
-    "match_date": 20220511
-    , "competition": "US Open Cup" 
+    "match_date": 20220514
+    , "competition": "MLS Regular Season" 
     , "is_competitive_match": true 
-    , "opponent": "Rochester New York FC" 
+    , "opponent": "Columbus Crew" 
     , "opponent_nationality": "US"
-    , "stadium": "Belson Stadium"
+    , "manager": "Ronny Deila"
+    , "manager_nationality": "NO"
+    , "start_date": 20200106
+    , "end_date": null
+    , "stadium": "Yankee Stadium"
     , "location_city": "New York" 
     , "location_state": "NY"
     , "location_country": "US"
-    , "attendance": null
-    , "referee": "Ernie Constantine"
+    , "attendance": 18813
+    , "referee": "Marcos de Oliveira"
     , "is_home_match": true
-    , "nycfc_goals": 3
+    , "nycfc_goals": 2
     , "nycfc_aggregate": null
     , "nycfc_penalties": null
-    , "opponent_goals": 1
+    , "opponent_goals": 0
     , "opponent_aggregate": null
     , "opponent_penalties": null
     , "result": "W" 
