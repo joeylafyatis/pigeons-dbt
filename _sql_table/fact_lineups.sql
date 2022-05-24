@@ -6,11 +6,18 @@ CREATE TABLE fact_lineups (
     , match_day INTEGER NOT NULL
     , opponent VARCHAR NOT NULL REFERENCES dim_opponent(opponent)
     , player VARCHAR NOT NULL REFERENCES dim_player(player)
+    , player_num INTEGER NOT NULL
     , is_starting_xi BOOLEAN NOT NULL
-    , substitution_for VARCHAR REFERENCES dim_player(player)
-    , substitution_off_at INTEGER
-    , substitution_on_at INTEGER
-    , yellow_card_at INTEGER
+    , sub_for VARCHAR REFERENCES dim_player(player)
+    , sub_off_at INTEGER
+    , sub_off_at_extra_time INTEGER
+    , sub_on_at INTEGER
+    , sub_on_at_extra_time INTEGER
+    , first_yellow_at INTEGER
+    , first_yellow_at_extra_time INTEGER
+    , second_yellow_at INTEGER
+    , second_yellow_at_extra_time INTEGER
     , red_card_at INTEGER
-    , PRIMARY KEY (match_date, opponent)
+    , red_card_at_extra_time INTEGER
+    , PRIMARY KEY (match_date, opponent, player)
 );

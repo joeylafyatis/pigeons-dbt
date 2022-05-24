@@ -10,5 +10,4 @@ CREATE TABLE fact_goals (
     , scored_at_extra_time INTEGER
     , assisted_by VARCHAR REFERENCES dim_player(player)
     , is_penalty_kick BOOLEAN NOT NULL
-    , PRIMARY KEY (match_date, opponent)
 );
