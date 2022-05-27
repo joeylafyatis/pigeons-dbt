@@ -70,8 +70,9 @@ class DatabaseBuilder():
             , 'fact_lineups'
             , 'fact_goals'
             , 'vw_comp_matches'
-            , 'vw_mls_regular_season'
+            , 'vw_mls_season'
             , 'vw_incomplete_data'
+            , 'vw_stats_by_mls_season'
         ]
         files = [ self._generate_lookup(d) for d in ddl_dirs ]
         lookup = { k: v for d in files for k, v in d.items() }
