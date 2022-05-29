@@ -36,6 +36,6 @@ WITH mls_regular_season AS (
     WHERE competition = 'MLS Regular Season'
 )
 SELECT *
-    , ROUND(cumulative_points / CAST(mls_matchday AS FLOAT), 4) AS cumulative_ppg
+    , ROUND(cumulative_points / CAST(mls_matchday AS FLOAT), 4) AS points_per_game
 FROM mls_regular_season
 ;
