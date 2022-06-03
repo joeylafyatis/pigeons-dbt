@@ -1,4 +1,8 @@
+/_tableau_in
+/_tableau_out
+
 *.DS_Store
 *.csv
 *.db
+
 match.json
