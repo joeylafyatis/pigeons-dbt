@@ -73,6 +73,7 @@ class DatabaseBuilder():
             , 'vw_mls_season'
             , 'vw_incomplete_data'
             , 'vw_stats_by_mls_season'
+            , 'vw_stats_by_manager'
         ]
         files = [ self._generate_lookup(d) for d in ddl_dirs ]
         lookup = { k: v for d in files for k, v in d.items() }
