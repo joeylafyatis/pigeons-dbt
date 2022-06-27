@@ -2,6 +2,11 @@
 
 This repo contains a Python script that refreshes a SQLite database of NYCFC match data. The script first creates an architecture defined in SQL files, and then inserts data retrieved and normalized from a CSV file.
 
+Analyses produced using this database:
+
+- [NYCFC Points per Game: 2022 vs. Other MLS Seasons](https://public.tableau.com/app/profile/joey.lafyatis/viz/NYCFCPointsperGame2022vs_OtherMLSSeasons/CumulativePPGbyMLSMatchday)
+- [NYCFC's Team Performance Under Past Managers](https://public.tableau.com/app/profile/joey.lafyatis/viz/NYCFCsTeamPerformanceUnderPastManagers/NYCFCsTeamPerformanceUnderPastManagers#1)
+
 ## Requirements
 
 The Python script in this repo will only succeed if the modules in `requirements.txt` are installed and available.
