@@ -3,6 +3,8 @@ import os
 import pandas as pd 
 import sqlite3
 
+from thefuzz import fuzz
+
 class DatabaseBuilder():
     def __init__(self, csv_in):
         self.data = pd.read_csv(csv_in)
@@ -17,6 +19,7 @@ class DatabaseBuilder():
         db_response = self._refresh_db()
         print(db_response)
 
+        self._run_validations()
         self.connection.close()
 
     def _prompt_user(self):
@@ -71,7 +74,6 @@ class DatabaseBuilder():
             , 'fact_goals'
             , 'vw_comp_matches'
             , 'vw_mls_season'
-            , 'vw_incomplete_data'
             , 'vw_stats_by_mls_season'
             , 'vw_stats_by_manager'
         ]
@@ -114,7 +116,7 @@ class DatabaseBuilder():
         )
         self.connection.cursor().executescript(ddl_in)
         [ insert_values(k, v) for k, v in df_in.items() ]
-        success = "nycfc.db successfully refreshed"
+        success = 'nycfc.db successfully refreshed'
         return success
 
     def _prepare_data(self):
@@ -142,6 +144,34 @@ class DatabaseBuilder():
         df_data = df_data[df_data[key].notna()]
         self.data.drop(columns=val, inplace=True)
         return df_data
+
+    def _run_validations(self):
+        cursor = self.connection.cursor()
+        filename = '_sql_validate/select_dim.sql'
+        sql = self._read_file(filename)
+        dim_tables = cursor.execute(sql).fetchall()
+        dim_tables = [ d[0] for d in dim_tables if d[0] != 'dim_player' ]
+
+        for dt in dim_tables:
+            select = f'SELECT * FROM {dt};'
+            df_data = pd.DataFrame(cursor.execute(select).fetchall())
+            df_data = df_data.select_dtypes('object')
+            df_data = df_data.fillna('')
+            df_data['out'] = df_data.apply(' '.join, axis=1)
+            
+            values = df_data.out.tolist()
+            values = [ v.strip().lower() for v in values ]
+            cartesian = [ (a, b) for a in values for b in values ]
+            cartesian = [ (min(a, b), max(a, b)) for a, b in cartesian if a !=b ]
+            cartesian = list(set(cartesian))
+            
+            similarity = [ fuzz.ratio(a, b) for a, b in cartesian ]
+            warnings = [(dt, a[0], a[1], b) for a, b in zip(cartesian, similarity) if b >= 90 ]
+            
+            if warnings:
+                for w in warnings:
+                    message = f'Warning: {w[0]} contains values that are {w[3]}% similar: "{w[1]}" and "{w[2]}"' 
+                    print(message)
 
 def main():
     dbb = DatabaseBuilder('matches.csv')
