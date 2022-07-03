@@ -4,7 +4,7 @@ This repo contains a Python script that refreshes a SQLite database of NYCFC mat
 
 Analyses produced using this database:
 
-- [NYCFC Points per Game: 2022 vs. Other MLS Seasons](https://public.tableau.com/app/profile/joey.lafyatis/viz/NYCFCPointsperGame2022vs_OtherMLSSeasons/CumulativePPGbyMLSMatchday)
+- [NYCFC Points per Game: 2022 vs. Other MLS Seasons](https://public.tableau.com/views/NYCFCCumulativePPG2022vs_OtherMLSSeasons/NYCFCCumulativePPG2022vs_OtherMLSSeasons?:language=en-US&:display_count=n&:origin=viz_share_link)
 - [NYCFC's Team Performance Under Past Managers](https://public.tableau.com/app/profile/joey.lafyatis/viz/NYCFCsTeamPerformanceUnderPastManagers/NYCFCsTeamPerformanceUnderPastManagers#1)
 
 ## Requirements
