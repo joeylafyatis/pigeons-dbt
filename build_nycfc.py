@@ -74,6 +74,7 @@ class DatabaseBuilder():
             , 'fact_goals'
             , 'vw_comp_matches'
             , 'vw_mls_season'
+            , 'vw_cumulative_ppg_by_mls_matchday'
             , 'vw_stats_by_mls_season'
             , 'vw_stats_by_manager'
         ]
