@@ -64,15 +64,13 @@ class DatabaseBuilder():
     def _prepare_ddl(self):
         ddl_dirs = ['_sql_table', '_sql_view']
         ddl_sequence = [
-            'dim_competition'
-            , 'dim_opponent'
+            'dim_opponent'
             , 'dim_manager'
             , 'dim_stadium'
             , 'dim_player'
             , 'fact_matches'
             , 'fact_lineups'
             , 'fact_goals'
-            , 'vw_comp_matches'
             , 'vw_mls_season'
             , 'vw_cumulative_ppg_by_mls_matchday'
             , 'vw_stats_by_mls_season'
@@ -131,8 +129,7 @@ class DatabaseBuilder():
 
     def _transform_dims(self):
         dimensions = {
-            'competition': ['is_competitive_match']
-            , 'opponent': ['opponent_nationality']
+            'opponent': ['opponent_nationality']
             , 'manager': ['manager_nationality', 'start_date', 'end_date']
             , 'stadium': ['location_city', 'location_state', 'location_country']
         }

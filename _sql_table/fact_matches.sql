@@ -4,7 +4,7 @@ CREATE TABLE fact_matches (
     , match_year INTEGER NOT NULL
     , match_month INTEGER NOT NULL
     , match_day INTEGER NOT NULL
-    , competition VARCHAR NOT NULL REFERENCES dim_competition(competition)
+    , competition VARCHAR NOT NULL
     , opponent VARCHAR NOT NULL REFERENCES dim_opponent(opponent)
     , manager VARCHAR REFERENCES dim_manager(manager)
     , stadium VARCHAR REFERENCES dim_stadium(stadium)

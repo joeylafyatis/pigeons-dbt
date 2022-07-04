@@ -32,10 +32,27 @@ WITH mls_regular_season AS (
             ORDER BY match_date ASC
             ROWS UNBOUNDED PRECEDING
         ) AS cumulative_points
-    FROM fact_matches 
+    FROM fact_matches
     WHERE competition = 'MLS Regular Season'
 )
-SELECT *
-    , ROUND(cumulative_points / CAST(mls_matchday AS FLOAT), 4) AS points_per_game
+SELECT 
+    match_date 
+    , match_year
+    , match_month 
+    , match_day
+    , mls_matchday
+    , opponent
+    , manager
+    , stadium
+    , attendance
+    , referee
+    , is_home_match
+    , nycfc_goals
+    , opponent_goals
+    , result
+    , points
+    , cumulative_points
+    , ROUND(cumulative_points / CAST(mls_matchday AS FLOAT), 4) AS cumulative_ppg
 FROM mls_regular_season
+ORDER BY match_date ASC
 ;
