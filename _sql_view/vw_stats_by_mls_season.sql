@@ -47,10 +47,10 @@ SELECT
     , ROUND((wins + draws) / CAST(matches_played AS FLOAT), 2) AS unbeaten_percentage
     , goals_for
     , goals_against
-    , goals_for - goals_against AS goal_diff
+    , goals_for - goals_against AS goal_difference
     , ROUND(goals_for / CAST(matches_played AS FLOAT), 2) AS goals_for_per_game
     , ROUND(goals_against / CAST(matches_played AS FLOAT), 2) AS goals_against_per_game
-    , ROUND((goals_for - goals_against) / CAST(matches_played AS FLOAT), 2) AS goal_diff_per_game
+    , ROUND((goals_for - goals_against) / CAST(matches_played AS FLOAT), 2) AS goal_difference_per_game
     , clean_sheats
     , clean_sheats_against
     -- HOME
@@ -64,10 +64,10 @@ SELECT
     , ROUND((wins_home + draws_home) / CAST(matches_played_home AS FLOAT), 2) AS unbeaten_percentage_home
     , goals_for_home
     , goals_against_home
-    , goals_for_home - goals_against_home AS goal_diff_home
+    , goals_for_home - goals_against_home AS goal_difference_home
     , ROUND(goals_for_home / CAST(matches_played_home AS FLOAT), 2) AS goals_for_per_game_home
     , ROUND(goals_against_home / CAST(matches_played_home AS FLOAT), 2) AS goals_against_per_game_home
-    , ROUND((goals_for_home - goals_against_home) / CAST(matches_played_home AS FLOAT), 2) AS goal_diff_per_game_home
+    , ROUND((goals_for_home - goals_against_home) / CAST(matches_played_home AS FLOAT), 2) AS goal_difference_per_game_home
     , clean_sheats_home
     , clean_sheats_against_home
     -- AWAY
@@ -81,10 +81,10 @@ SELECT
     , ROUND((wins_away + draws_away) / CAST(matches_played_away AS FLOAT), 2) AS unbeaten_percentage_away
     , goals_for_away
     , goals_against_away
-    , goals_for_away - goals_against_away AS goal_diff_away
+    , goals_for_away - goals_against_away AS goal_difference_away
     , ROUND(goals_for_away / CAST(matches_played_away AS FLOAT), 2) AS goals_for_per_game_away
     , ROUND(goals_against_away / CAST(matches_played_away AS FLOAT), 2) AS goals_against_per_game_away
-    , ROUND((goals_for_away - goals_against_away) / CAST(matches_played_away AS FLOAT), 2) AS goal_diff_per_game_away
+    , ROUND((goals_for_away - goals_against_away) / CAST(matches_played_away AS FLOAT), 2) AS goal_difference_per_game_away
     , clean_sheats_away
     , clean_sheats_against_away
 FROM mls_by_season
