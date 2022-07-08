@@ -19,7 +19,7 @@ The main process within `DatabaseBuilder` is a simple ETL that expects `matches.
 
 ### CSV Updates
 
-An optional process within `build-nycfc.py` appends a new record of data from `match.json`, found within the `_json/` directory, to the CSV prior to refreshing the database. This data change file is not version-controlled within the repo, though `template.json` demonstrates its schema.
+An optional process within `build-nycfc.py` appends a new record of data from `match.json`, found within the `_json/` directory, to the `matches.csv` CSV prior to refreshing the database. This data change file is not version-controlled within the repo, though `template.json` demonstrates its schema and can be copied and renamed locally to enable its intended functionality.
 
 ## Disclaimer
 
