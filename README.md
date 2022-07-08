@@ -1,15 +1,13 @@
 # NYCFC Match Database
 
-This repo contains a Python script that refreshes a SQLite database of NYCFC match data. The script first creates an architecture defined in SQL files, and then inserts data retrieved and normalized from a CSV file.
-
-Analyses produced using this database:
+This repo contains a Python script that refreshes a SQLite database of NYCFC match data. The script first creates an architecture as defined in SQL files, and then inserts data retrieved and normalized from a CSV file. Here are two examples of analyses produced using this database:
 
 - [NYCFC Points per Game: 2022 vs. Other MLS Seasons](https://public.tableau.com/views/NYCFCCumulativePPG2022vs_OtherMLSSeasons/NYCFCCumulativePPG2022vs_OtherMLSSeasons?:language=en-US&:display_count=n&:origin=viz_share_link)
 - [NYCFC's Team Performance Under Past Managers](https://public.tableau.com/app/profile/joey.lafyatis/viz/NYCFCsTeamPerformanceUnderPastManagers/NYCFCsTeamPerformanceUnderPastManagers#1)
 
 ## Requirements
 
-The Python script in this repo will only succeed if the modules in `requirements.txt` are installed and available.
+The Python script in this repo will only run successfully if the modules in `requirements.txt` are available to it.
 
 ## Overview
 
@@ -25,4 +23,4 @@ An optional process within `build-nycfc.py` appends a new record of data from `m
 
 ## Disclaimer
 
-This repo does not include the historical data collection efforts that were requisite to this work, as the speed at which new data is created has not seemed to immediately warrant it. The next iteration of this work will endeavor to create data models that capture player-level information, such as: roster changes, starting line-ups, and in-game events (goals, substitutions, and cards).
+This repo does not capture the data collection efforts that were a prerequisite to this work, as the speed at which new data is created has not seemed to immediately warrant it. The next iteration of this work will endeavor to create data models that capture player-level match details (such starting line-ups, goals, substitutions, and cards), which may impact the need to further automate data collection.
