@@ -23,4 +23,4 @@ An optional process within `build-nycfc.py` appends a new record of data from `m
 
 ## Disclaimer
 
-This repo does not capture the data collection efforts that were a prerequisite to this work, as the speed at which new data is created has not seemed to immediately warrant it. The next iteration of this work will endeavor to create data models that capture player-level match details (such starting line-ups, goals, substitutions, and cards), which may impact the need to further automate data collection.
+This repo does not capture the data collection efforts that were a prerequisite to this work, as the speed at which new data is created has not seemed to immediately warrant it. The next iteration of this work will endeavor to create data models for player-level match information (such starting line-ups, goals, substitutions, and cards), which may impact the need to further automate data collection.
