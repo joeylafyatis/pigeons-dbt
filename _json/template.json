@@ -1,7 +1,6 @@
 {
     "match_date": 20220514
     , "competition": "MLS Regular Season" 
-    , "is_competitive_match": true 
     , "opponent": "Columbus Crew" 
     , "opponent_nationality": "US"
     , "manager": "Ronny Deila"
