@@ -71,6 +71,7 @@ class DatabaseBuilder():
             , 'fact_matches'
             , 'fact_lineups'
             , 'fact_goals'
+            , 'vw_days_rest'
             , 'vw_mls_season'
             , 'vw_cumulative_ppg_by_mls_matchday'
             , 'vw_stats_by_mls_season'
