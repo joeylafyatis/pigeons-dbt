@@ -1,6 +1,6 @@
 SHELL := /bin/zsh
 
-init: 	#Creates a virtual environment with required Python packages 
+init: 	#Prepares a virtual environment with required Python packages 
 	@pyenv virtualenv 3.8.12 nycfc; \
 	. activate nycfc; \
 	pip install -r requirements.txt
