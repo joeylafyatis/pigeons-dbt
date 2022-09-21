@@ -1,6 +1,6 @@
 # NYCFC Database
 
-This repo contains a Python script that refreshes a SQLite database of NYCFC match data. The script first creates an architecture as defined in SQL files, and then inserts data retrieved and normalized from a CSV file. Examples of analyses produced using this database include:
+This repo builds a SQLite database of NYCFC data. A Python script interprets an architecture defined in SQL files, and then inserts data retrieved and normalized from a CSV file. An additional, user-prompted function allows new rows of data to be added to the CSV file prior to a database refresh. Examples of analyses produced using this database include:
 
 - [NYCFC Points per Game: 2022 vs. Other MLS Seasons](https://public.tableau.com/views/NYCFCCumulativePPG2022vs_OtherMLSSeasons/NYCFCCumulativePPG2022vs_OtherMLSSeasons?:language=en-US&:display_count=n&:origin=viz_share_link)
 - [NYCFC's Team Performance Under Past Managers](https://public.tableau.com/app/profile/joey.lafyatis/viz/NYCFCsTeamPerformanceUnderPastManagers/NYCFCsTeamPerformanceUnderPastManagers#1)
