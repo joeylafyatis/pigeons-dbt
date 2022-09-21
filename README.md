@@ -8,7 +8,7 @@ This repo contains a Python script that refreshes a SQLite database of NYCFC mat
 
 ## Requirements
 
-This repo implements `make` commands that rely on [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv).
+This repo implements `make` commands that expect [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv).
 
 ## Overview
 
