@@ -1,4 +1,4 @@
-# NYCFC Match Database
+# NYCFC Database
 
 This repo contains a Python script that refreshes a SQLite database of NYCFC match data. The script first creates an architecture as defined in SQL files, and then inserts data retrieved and normalized from a CSV file. Examples of analyses produced using this database include:
 
